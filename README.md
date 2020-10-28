@@ -62,7 +62,7 @@ module "netbox" {
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.13 |
+| terraform | >= 0.13.0 |
 | aws | >= 2.65 |
 | random | >= 1.2 |
 | template | >= 2.1 |

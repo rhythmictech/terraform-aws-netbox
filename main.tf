@@ -78,7 +78,7 @@ resource "aws_autoscaling_group" "this" {
   desired_capacity          = var.asg_desired_capacity
   force_delete              = false
   health_check_grace_period = 600
-  health_check_type         = "EC2"
+  health_check_type         = "ELB"
   launch_configuration      = aws_launch_configuration.this.name
   max_size                  = var.asg_max_size
   min_size                  = var.asg_min_size
