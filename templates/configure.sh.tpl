@@ -58,7 +58,10 @@ END
 /bin/systemctl start redis
 /bin/systemctl start netbox
 /bin/systemctl start netbox-rq
-/bin/systemctl start nginx
+
+if [ ${start_nginx} ] ; then
+  /bin/systemctl start nginx
+fi
 
 su - netbox
 source /opt/netbox/venv/bin/activate

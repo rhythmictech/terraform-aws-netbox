@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "assume" {
 data "aws_iam_policy_document" "this" {
   statement {
     actions   = ["secretsmanager:GetSecretValue"]
-    resources = [module.netbox_secret.secret_arn]
+    resources = local.secret_arns
   }
 }
 

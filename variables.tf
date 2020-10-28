@@ -105,6 +105,12 @@ variable "asg_root_volume_size" {
   type        = number
 }
 
+variable "asg_start_nginx" {
+  default     = true
+  description = "should nginx be started (must be started elsewhere in userdata otherwise or the ASG will kill the instance)"
+  type        = bool
+}
+
 variable "asg_subnets" {
   description = "Subnets to associate ASG instances with"
   type        = list(string)

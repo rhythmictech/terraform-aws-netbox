@@ -96,6 +96,7 @@ module "netbox" {
 | asg\_max\_size | Maximum number of instances in the autoscaling group | `number` | `1` | no |
 | asg\_min\_size | Minimum number of instances in the autoscaling group | `number` | `1` | no |
 | asg\_root\_volume\_size | size of root volume (includes app install but not data dir) | `number` | `20` | no |
+| asg\_start\_nginx | should nginx be started (must be started elsewhere in userdata otherwise or the ASG will kill the instance) | `bool` | `true` | no |
 | db\_additional\_security\_groups | SGs permitted access to RDS | `list(string)` | `[]` | no |
 | db\_allowed\_access\_cidrs | CIDRs permitted access to RDS | `list(string)` | `[]` | no |
 | db\_engine\_version | engine version to run (netbox at present requires >= 9.6 and < 11) | `string` | `"11"` | no |

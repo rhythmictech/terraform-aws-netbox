@@ -28,6 +28,11 @@ locals {
   region                 = data.aws_region.current.name
   short_name             = substr(var.name, 0, 32)
 
+  secret_arns = [
+    module.netbox_secret.secret_arn,
+    local.db_password_secret_arn
+  ]
+
   configure_script = templatefile("${path.module}/templates/configure.sh.tpl",
     {
       base_hostname          = local.netbox_url
@@ -39,6 +44,7 @@ locals {
       mount_point            = "/opt/netbox/current/netbox/media"
       region                 = local.region
       site_name              = var.site_name
+      start_nginx            = var.asg_start_nginx
     }
   )
 
