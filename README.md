@@ -99,6 +99,7 @@ module "netbox" {
 | asg\_start\_nginx | should nginx be started (must be started elsewhere in userdata otherwise or the ASG will kill the instance) | `bool` | `true` | no |
 | db\_additional\_security\_groups | SGs permitted access to RDS | `list(string)` | `[]` | no |
 | db\_allowed\_access\_cidrs | CIDRs permitted access to RDS | `list(string)` | `[]` | no |
+| db\_backup\_retention\_period | Number of daily DB backups to retain | `number` | `7` | no |
 | db\_engine\_version | engine version to run (netbox at present requires >= 9.6 and < 11) | `string` | `"11"` | no |
 | db\_instance\_class | DB Instance Size | `string` | `"db.t3.large"` | no |
 | db\_monitoring\_interval | Enhanced monitoring interval (5-60 seconds, 0 to disable) | `number` | `0` | no |
@@ -118,7 +119,11 @@ module "netbox" {
 | efs\_backup\_vault\_name | AWS Backup vault name (only used if `enable_efs_backups=true`) | `string` | `"netbox-efs-vault"` | no |
 | elb\_additional\_sg\_tags | Additional tags to apply to the ELB security group. Useful if you use an external process to manage ingress rules. | `map(string)` | `{}` | no |
 | elb\_allowed\_cidr\_blocks | List of allowed CIDR blocks. If `[]` is specified, no inbound ingress rules will be created | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| elb\_deregistration\_delay | The deregistration delay for the target group | `number` | `60` | no |
+| elb\_healthcheck\_healthy\_threshold | Healthy threshold for ELB healthcheck | `number` | `2` | no |
+| elb\_healthcheck\_interval | Interval for ELB healthcheck | `number` | `15` | no |
 | elb\_internal | Create as an internal or internet-facing ELB | `bool` | `true` | no |
+| elb\_ssl\_policy | SSL Policy to use (see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies) | `string` | `"ELBSecurityPolicy-FS-1-2-2019-08"` | no |
 | enable\_efs\_backups | Enable EFS backups using AWS Backup (recommended if you aren't going to back up EFS some other way) | `bool` | `false` | no |
 | name | Moniker to apply to all resources in the module | `string` | `"netbox"` | no |
 | site\_name | Site name | `string` | `"Netbox"` | no |

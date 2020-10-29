@@ -5,9 +5,7 @@ resource "aws_security_group" "this" {
 
   tags = merge(
     var.tags,
-    map(
-      "Name", var.name
-    )
+    { "Name" = var.name }
   )
 
   lifecycle {
@@ -16,7 +14,7 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_security_group_rule" "allow_inbound_http_from_lb" {
-  description              = "Allow HTTPS traffic from the load balancer"
+  description              = "Allow HTTP traffic from the load balancer"
   from_port                = 80
   protocol                 = "tcp"
   security_group_id        = aws_security_group.this.id

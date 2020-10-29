@@ -202,6 +202,11 @@ variable "db_performance_insights_enabled" {
   type        = bool
 }
 
+variable "db_backup_retention_period" {
+  default     = 7
+  description = "Number of daily DB backups to retain"
+  type        = number
+}
 variable "db_storage_size" {
   description = "Size of DB (in GB)"
   type        = number
@@ -278,10 +283,32 @@ variable "elb_certificate" {
   type        = string
 }
 
+variable "elb_healthcheck_healthy_threshold" {
+  default     = 2
+  description = "Healthy threshold for ELB healthcheck"
+  type        = number
+}
+
+variable "elb_healthcheck_interval" {
+  default     = 15
+  description = "Interval for ELB healthcheck"
+  type        = number
+}
+
 variable "elb_internal" {
   default     = true
   description = "Create as an internal or internet-facing ELB"
   type        = bool
+}
+variable "elb_deregistration_delay" {
+  default     = 60
+  description = "The deregistration delay for the target group"
+  type        = number
+}
+variable "elb_ssl_policy" {
+  default     = "ELBSecurityPolicy-FS-1-2-2019-08"
+  description = "SSL Policy to use (see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies)"
+  type        = string
 }
 
 variable "elb_subnets" {

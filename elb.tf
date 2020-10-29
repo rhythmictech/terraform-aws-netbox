@@ -6,7 +6,7 @@ resource "aws_security_group" "elb" {
   tags = merge(
     var.tags,
     var.elb_additional_sg_tags,
-    { "Name" : "elb-${var.name}-elb" }
+    { "Name" : "elb-${var.name}" }
   )
 
   lifecycle {
@@ -51,7 +51,7 @@ resource "aws_lb_listener" "this" {
   load_balancer_arn = aws_lb.this.id
   port              = 443
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
+  ssl_policy        = var.elb_ssl_policy
 
   default_action {
     target_group_arn = aws_lb_target_group.this.id
@@ -61,15 +61,15 @@ resource "aws_lb_listener" "this" {
 
 resource "aws_lb_target_group" "this" {
   name_prefix          = substr(var.name, 0, 6)
-  deregistration_delay = 60
+  deregistration_delay = var.elb_deregistration_delay
   port                 = "80"
   protocol             = "HTTP"
   tags                 = var.tags
   vpc_id               = var.vpc_id
 
   health_check {
-    healthy_threshold = 2
-    interval          = 15
+    healthy_threshold = var.elb_healthcheck_healthy_threshold
+    interval          = var.elb_healthcheck_interval
     matcher           = "200-299,302"
     protocol          = "HTTP"
     port              = "80"

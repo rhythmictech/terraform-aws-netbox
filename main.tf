@@ -138,7 +138,7 @@ module "netboxdb" {
   name                         = local.db_name
   allowed_cidr_blocks          = var.db_allowed_access_cidrs
   allowed_security_groups      = local.db_allowed_security_groups
-  backup_retention_period      = 7
+  backup_retention_period      = var.db_backup_retention_period
   engine_version               = var.db_engine_version
   identifier_prefix            = local.short_name
   instance_class               = var.db_instance_class
