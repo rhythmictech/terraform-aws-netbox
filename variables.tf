@@ -207,6 +207,7 @@ variable "db_backup_retention_period" {
   description = "Number of daily DB backups to retain"
   type        = number
 }
+
 variable "db_storage_size" {
   description = "Size of DB (in GB)"
   type        = number
