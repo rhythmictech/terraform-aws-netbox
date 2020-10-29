@@ -2,7 +2,6 @@ data "aws_region" "current" {
 }
 
 data "template_cloudinit_config" "this" {
-
   part {
     content_type = "text/x-shellscript"
     content      = local.configure_script
