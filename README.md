@@ -11,39 +11,10 @@ Creates an [Netbox](github.com/netbox-community/) instance, optionally bootstrap
 
 ## Example
 ```hcl
-data "aws_ami" "netbox" {
-  most_recent = true
-
-  owners = [local.account_id]
-
-  filter {
-    name   = "name"
-    values = ["packer_ubuntu_bionic_netbox_*"]
-  }
-}
-
-module "netbox_key" {
-  source  = "rhythmictech/secure-ssh-key/aws"
-  version = "~> 1.0.1"
-
-  name = "netbox-key"
-}
-
-resource "aws_key_pair" "netbox_key" {
-  key_name_prefix = "netbox"
-  public_key      = module.netbox_key.ssh_pubkey
-  tags            = local.tags
-}
-
 module "netbox" {
-  #source = "rhythmictech/netbox/aws"
-  source = "../../terraform-aws-netbox"
+  source = "rhythmictech/netbox/aws"
 
-    ami_id                         = data.aws_ami.netbox.id
-  asg_additional_iam_policies    = ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"]
-  asg_additional_security_groups = [aws_security_group.admin_access.id]
-  asg_instance_type              = "t3.large"
-  asg_key_name                   = aws_key_pair.netbox_key.id
+  ami_id                         = "ami-12345678"
   asg_subnets                     = ["subnet-123456789"]
   db_instance_class              = "db.t3.medium"
   db_storage_size                = 5
