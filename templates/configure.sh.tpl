@@ -55,11 +55,12 @@ REDIS = {
 
 END
 
-/bin/systemctl start redis
+/bin/systemctl start redis-server
+sleep 15 # netbox-rq will fail to start if redis isn't listening
 /bin/systemctl start netbox
 /bin/systemctl start netbox-rq
 
-if [ ${start_nginx} ] ; then
+if ${start_nginx}; then
   /bin/systemctl start nginx
 fi
 
