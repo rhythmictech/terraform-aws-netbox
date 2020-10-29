@@ -1,5 +1,5 @@
 resource "aws_security_group" "elb" {
-  name_prefix = "${var.name}-elb-sg"
+  name_prefix = "elb-${var.name}"
   description = "Inbound ELB"
   vpc_id      = var.vpc_id
 
