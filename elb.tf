@@ -6,7 +6,7 @@ resource "aws_security_group" "elb" {
   tags = merge(
     var.tags,
     var.elb_additional_sg_tags,
-    { "Name" : "${var.name}-elb-sg" }
+    { "Name" : "elb-${var.name}-elb" }
   )
 
   lifecycle {
